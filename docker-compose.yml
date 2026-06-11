@@ -1,10 +1,11 @@
 services:
   db:
     image: postgres:16-alpine
+    container_name: atendemax-db
     environment:
+      POSTGRES_DB: atendemax
       POSTGRES_USER: atendemax
       POSTGRES_PASSWORD: atendemax123
-      POSTGRES_DB: atendemax
     ports:
       - "5432:5432"
     volumes:
@@ -14,9 +15,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - atendemax-network
 
-  api:
-    build: .
+  backend:
+    build: ./backend
+    container_name: atendemax-backend
     ports:
       - "8000:8000"
     environment:
@@ -24,6 +28,22 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - atendemax-network
+
+  frontend:
+    build: ./frontend
+    container_name: atendemax-frontend
+    ports:
+      - "5500:80"
+    depends_on:
+      - backend
+    networks:
+      - atendemax-network
 
 volumes:
   postgres_data:
+
+networks:
+  atendemax-network:
+    driver: bridge
