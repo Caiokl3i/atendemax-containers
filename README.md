@@ -272,7 +272,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 A documentação técnica completa para entrega do projeto está em:
 
-- **PDF:** [`docs/DOCUMENTACAO.pdf`](DOCUMENTACAO.pdf)
+- **PDF:** [`/DOCUMENTACAO.pdf`](DOCUMENTACAO.pdf)
 
 Inclui descrição da aplicação, mapeamento de containers, comandos e detalhes de configuração do `docker-compose.yml`.
 
